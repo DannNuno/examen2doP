@@ -1,20 +1,45 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
+    <ion-title>Registro de Calificaciones</ion-title>
+    <ion-button (click)="logout()">
+      <ion-icon name="log-out-outline"></ion-icon> Cerrar Sesión
+    </ion-button>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="ion-padding">
+  <ion-list>
+    <ion-item *ngFor="let grade of grades$ | async">
+      <ion-label>
+        <h2>{{ grade.firstName }} {{ grade.lastName }}</h2>
+        <p>Matrícula: {{ grade.matricula }}</p>
+        <p>Correo: {{ grade.email }}</p>
+        <p>Materias:</p>
+        <ul>
+          <li>MATE: {{ grade.subjects.mate }}</li>
+          <li>OCA: {{ grade.subjects.oca }}</li>
+          <li>PMP: {{ grade.subjects.pmp }}</li>
+          <li>DAMM: {{ grade.subjects.damm }}</li>
+          <li>M3D: {{ grade.subjects.m3d }}</li>
+        </ul>
+      </ion-label>
+      <ion-button fill="clear" color="primary" (click)="editGrade(grade)">Editar</ion-button>
+      <ion-button fill="clear" color="danger" (click)="grade.id ? deleteGrade(grade.id) : null">
+        Eliminar
+      </ion-button>
+        </ion-item>
+  </ion-list>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+  <ion-item>
+    <ion-input [(ngModel)]="gradeData.firstName" placeholder="Nombre"></ion-input>
+    <ion-input [(ngModel)]="gradeData.lastName" placeholder="Apellidos"></ion-input>
+    <ion-input [(ngModel)]="gradeData.matricula" placeholder="Matrícula"></ion-input>
+    <ion-input [(ngModel)]="gradeData.email" placeholder="Correo"></ion-input>
+    <ion-input [(ngModel)]="gradeData.subjects.mate" type="number" placeholder="MATE"></ion-input>
+    <ion-input [(ngModel)]="gradeData.subjects.oca" type="number" placeholder="OCA"></ion-input>
+    <ion-input [(ngModel)]="gradeData.subjects.pmp" type="number" placeholder="PMP"></ion-input>
+    <ion-input [(ngModel)]="gradeData.subjects.damm" type="number" placeholder="DAMM"></ion-input>
+    <ion-input [(ngModel)]="gradeData.subjects.m3d" type="number" placeholder="M3D"></ion-input>
+    <ion-button (click)="addGrade()">{{ editingGradeId ? 'Actualizar' : 'Agregar' }}</ion-button>
+  </ion-item>
 </ion-content>
