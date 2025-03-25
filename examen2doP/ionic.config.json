@@ -1,0 +1,7 @@
+{
+  "name": "examen2doP",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
